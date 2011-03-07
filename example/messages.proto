@@ -1,0 +1,10 @@
+package net.kdpeterson.sweetness.example;
+
+message my_message {
+  enum my_enum {
+    APPLE = 0;
+    ORANGE = 1;
+  }
+  required my_enum enum_1 = 1;
+  optional my_enum enum_2 = 2;
+}

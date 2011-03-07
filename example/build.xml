@@ -1,0 +1,17 @@
+<project name="ProtoEnum" basedir=".">
+	<macrodef name="protoc">
+		<attribute name="proto" />
+		<sequential>
+			<echo message="protoc compiling @{proto}" />
+			<exec executable="protoc">
+				<arg value="--plugin=../scripts/protoc-gen-sweetness"/>
+				<arg value="--sweetness_out=output" />
+				<arg value="--java_out=output" />
+				<arg value="@{proto}" />
+			</exec>
+		</sequential>
+	</macrodef>
+	<target name="code-gen" description="protoc messages.proto">
+		<protoc proto="messages.proto" />
+	</target>
+</project>
