@@ -1,2 +1,45 @@
-<project name="sweetness">
+<?xml version="1.0"?>
+<project name="sweetness" basedir="." default="test" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property name="src" value="src"/>
+	<property name="srctest" value="srctest"/>
+	<property name="build.dir" value="target"/>
+	<property name="classes" value="${build.dir}/classes"/>
+	<property name="test.classes" value="${build.dir}/test/classes" />
+	<path id="libs">
+		<dirset dir="lib" includes="**/*.jar"/>
+	</path>
+	<target name="clean">
+		<rmdir dir="${build.dir}"/>
+	</target>
+	<target name="ivy">
+		<ivy:retrieve />
+	</target>
+	<target name="compile">
+		<mkdir dir="${classes}" />
+		<javac srcdir="${src}" destdir="${classes}">
+			<classpath>
+				<pathelement path="${libs}"/>
+			</classpath>
+		</javac>
+	</target>
+	<target name="compile.test" depends="compile">
+        <mkdir dir="${test.classes}" />
+		<javac srcdir="${srctest}" destdir="${test.classes}">
+			<classpath>
+				<pathelement path="${libs}"/>
+				<pathelement path="${classes}"/>
+			</classpath>
+		</javac>
+	</target>
+	<target name="test" depends="compile.test">
+		<junit>
+			<batchtest>
+				<fileset dir="${test.classes}" includes="**/*Test*.class"/>
+			</batchtest>
+		</junit>
+	</target>
+	<target name="jar" depends="compile">
+	</target>
+	<target name="dist" depends="jar">
+	</target>
 </project>

@@ -3,6 +3,9 @@
 
 package google.protobuf.compiler;
 
+/**
+ * Generated from the protobuf compiler. Included as java for convenience.
+ */
 public final class Plugin {
   private Plugin() {}
   public static void registerAllExtensions(
